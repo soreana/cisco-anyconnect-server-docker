@@ -1,0 +1,10 @@
+#!/bin/bash
+
+certtool --generate-privkey --outfile $1-privkey.pem && \
+cp /etc/ocserv/client-cert.cfg ./$1-cert.cfg && \
+sed -i "s/username/$1/g" $1-cert.cfg && \
+certtool --generate-certificate --load-privkey $1-privkey.pem --load-ca-certificate /etc/ocserv/ca-cert.pem --load-ca-privkey /etc/ocserv/ca-key.pem --template $1-cert.cfg --outfile $1-cert.pem && \
+certtool --to-p12 --load-privkey $1-privkey.pem --load-certificate $1-cert.pem --pkcs-cipher 3des-pkcs12 --outfile $1.p12 --outder && \
+echo "Enter plain ocpasswd password:" && \
+rm $1-privkey.pem $1-cert.pem $1-cert.cfg && \
+ocpasswd -c /etc/ocserv/ocpasswd $1
