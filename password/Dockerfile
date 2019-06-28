@@ -1,13 +1,17 @@
 FROM debian:9.8-slim
 
 ARG ORGANIZATION="Example Corp"
+ARG DOMAIN="example.com"
 
 COPY start.sh ca.tmpl server.tmpl /etc/ocserv/
 
+WORKDIR /etc/ocserv/
+
 RUN apt-get update && \
 	apt-get install -y ocserv gnutls-bin iptables && \
-	cd /etc/ocserv && \
 	sed -i "s/\"Example Corp\"/\"$ORGANIZATION\"/g" ca.tmpl && \
+	sed -i "s/\"Example Corp\"/\"$ORGANIZATION\"/g" server.tmpl && \
+	sed -i "s/\"example.com\"/\"$DOMAIN\"/g" server.tmpl && \
 	certtool --generate-privkey --outfile ca-key.pem && \
 	certtool --generate-self-signed --load-privkey ca-key.pem --template ca.tmpl --outfile ca-cert.pem && \
 	certtool --generate-privkey --outfile server-key.pem && \
