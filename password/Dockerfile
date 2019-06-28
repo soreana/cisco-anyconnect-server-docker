@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+FROM debian:9.8-slim
 
 COPY start.sh ca.tmpl server.tmpl /etc/ocserv/
 
