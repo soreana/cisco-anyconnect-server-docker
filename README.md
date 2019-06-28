@@ -11,6 +11,26 @@ There exist two way of client authentication, with password or certificate. Pass
 In the section II I will show password authentication configuration and how you can add new client. In section III I will use same procedure to introduce certificate authentication. Some tricks to boost your network speed and delay provided in final section.
 
 ## Section II: password authentication config
+Easiest ocserv configuration is its password authentication. By passing some argument at build time you can build your own docker image customized for your domain. This image can be built by running below command in root directory of this project. Meaning of build arguments provided in Table. 1 .
+
+```bash
+$ docker build --build-arg ORGANIZATION="Example Corp" --build-arg DOMAIN=example.com -t anyconnect:password ./password/
+```
+
+<br>
+
+|      ARG     |                   Meaning                  |     Default    |
+|:------------:|:------------------------------------------:|:--------------:|
+| ORGANIZATION | Organization used to generate cetificates. | "Example Corp" |
+|    DOMAIN    | Certificate will generate for this domain  | "example.com"  |
+
+*Table. 1: meaning of password configuration build args*
+
+After successfule build run anyconnect image by:
+
+```bash
+$ docker run --name anyconnect -it --privileged -p 4321:4321 anyconnect:password
+```
 
 ## Section III: certificate authentication config
 
