@@ -10,7 +10,7 @@ There exist two way of client authentication, with password or certificate. Pass
 
 In the section II I will show password authentication configuration and how you can add new client. In section III I will use same procedure to introduce certificate authentication. Some tricks to boost your network speed and delay provided in final section.
 
-## Sectino II: password authentication config
+## Section II: password authentication config
 
 ## Section III: certificate authentication config
 
