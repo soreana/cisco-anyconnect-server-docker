@@ -7,7 +7,7 @@ COPY start.sh ca.tmpl server.tmpl /etc/ocserv/
 RUN apt-get update && \
 	apt-get install -y ocserv gnutls-bin iptables && \
 	cd /etc/ocserv && \
-	sed -i "s/\"Example Corp\"/$organizatoin/g" ca.tmpl && \
+	sed -i "s/\"Example Corp\"/\"$organization\"/g" ca.tmpl && \
 	certtool --generate-privkey --outfile ca-key.pem && \
 	certtool --generate-self-signed --load-privkey ca-key.pem --template ca.tmpl --outfile ca-cert.pem && \
 	certtool --generate-privkey --outfile server-key.pem && \
