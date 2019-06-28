@@ -1,4 +1,4 @@
-from ubuntu:16.04
+FROM ubuntu:16.04
 
 COPY start.sh ca.tmpl server.tmpl /etc/ocserv/
 

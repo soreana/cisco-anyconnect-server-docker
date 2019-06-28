@@ -1,4 +1,4 @@
-from debian:9.8-slim
+FROM debian:9.8-slim
 
 COPY start.sh ca.tmpl server.tmpl gcc client-cert.cfg /etc/ocserv/
 
