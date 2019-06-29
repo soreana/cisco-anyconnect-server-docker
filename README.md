@@ -44,10 +44,10 @@ and then create users as stated before and quit with `exit`.
 
 <br>
 
-|      ARG     |                   Meaning                  |     Default    |
-|:------------:|:------------------------------------------:|:--------------:|
-| ORGANIZATION | Organization used to generate cetificates. | "Example Corp" |
-|    DOMAIN    | Certificate will generate for this domain  | "example.com"  |
+|      ARG     |                    Meaning                   |     Default    |
+|:------------:|:--------------------------------------------:|:--------------:|
+| ORGANIZATION | Organization field in generated cetificates. | "Example Corp" |
+|    DOMAIN    |  Certificate will generate for this domain   | "example.com"  |
 
 *Table. 1: meaning of password configuration build args*
 
