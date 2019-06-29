@@ -11,11 +11,36 @@ There exist two way of client authentication, with password or certificate. Pass
 In the section II I will show password authentication configuration and how you can add new client. In section III I will use same procedure to introduce certificate authentication. Some tricks to boost your network speed and delay provided in final section.
 
 ## Section II: password authentication config
-Easiest ocserv configuration is its password authentication. By passing some argument at build time you can build your own docker image customized for your domain. This image can be built by running below command in root directory of this project. Meaning of build arguments provided in Table. 1 .
+Easiest ocserv configuration is its password authentication. By passing some argument at build time you can build your own docker image customized for your domain. Run below command in root directory of this project to build fresh ocserve docker image with password authentication customized for your domain. Meaning of build arguments provided in Table. 1 .
 
 ```bash
 $ docker build --build-arg ORGANIZATION="Example Corp" --build-arg DOMAIN=example.com -t anyconnect:password ./password/
 ```
+
+After successful build run anyconnect image by:
+
+```bash
+$ docker run --name any-pass -it --privileged -p 4321:4321 anyconnect:password
+Parsing plain auth method subconfig using legacy format
+note: setting 'plain' as primary authentication method
+note: setting 'file' as supplemental config option
+root@a86f00e3e939:/etc/ocserv#
+``` 
+
+You will directed to **any-pass** container bash. Create clients with:
+
+```bash
+root@a86f00e3e939:/etc/ocserv# ocpasswd -c /etc/ocserv/ocpasswd <username>
+```
+
+After setting up users and their password then hit <kbd>Ctrl-p</kbd> <kbd>Ctrl-q</kbd> to detach from bash. To add more users in future, first execute new bash on **any-pass** with:
+
+```bash
+$ docker exec -it anyconnect /bin/bash
+root@a86f00e3e939:/etc/ocserv#
+```
+
+and then create users as stated before and quit with `exit`.
 
 <br>
 
@@ -25,12 +50,6 @@ $ docker build --build-arg ORGANIZATION="Example Corp" --build-arg DOMAIN=exampl
 |    DOMAIN    | Certificate will generate for this domain  | "example.com"  |
 
 *Table. 1: meaning of password configuration build args*
-
-After successfule build run anyconnect image by:
-
-```bash
-$ docker run --name anyconnect -it --privileged -p 4321:4321 anyconnect:password
-```
 
 ## Section III: certificate authentication config
 
