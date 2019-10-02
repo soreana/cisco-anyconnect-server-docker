@@ -11,7 +11,7 @@ There exist two way of client authentication, with password or certificate. Pass
 In the section II I will show password authentication configuration and how you can add new client. In section III I will use same procedure to introduce certificate authentication. Some tricks to boost your network speed and delay provided in final section.
 
 ## Section II: password authentication config
-Easiest ocserv configuration is its password authentication. By passing some argument at build time you can build your own docker image customized for your domain. Run below command in root directory of this project to build fresh ocserve docker image with password authentication customized for your domain. Meaning of build arguments provided in Table. 1 .
+Easiest ocserv configuration is its password authentication. By passing some argument at build time you can build your own docker image customized for your domain. Run below command in root directory of this repo to build fresh ocserve docker image with password authentication customized for your domain. Meaning of build arguments provided in Table. 1 .
 
 ```bash
 $ docker build --build-arg ORGANIZATION="Example Corp" --build-arg DOMAIN=example.com -t anyconnect:password ./password/
@@ -36,7 +36,7 @@ root@a86f00e3e939:/etc/ocserv# ocpasswd -c /etc/ocserv/ocpasswd <username>
 After setting up users and their password then hit <kbd>Ctrl-p</kbd> <kbd>Ctrl-q</kbd> to detach from bash. To add more users in future, first execute new bash on **any-pass** with:
 
 ```bash
-$ docker exec -it anyconnect /bin/bash
+$ docker exec -it any-pass /bin/bash
 root@a86f00e3e939:/etc/ocserv#
 ```
 
@@ -53,7 +53,60 @@ and then create users as stated before and quit with `exit`.
 
 ## Section III: certificate authentication config
 
-### todo write this section
+I don't know how you feel about typing your password every time you want to use VPN but I hate it. Certificate authentication come to rescue us. Although it is hard to setup and maintain certificates ocsev, you can easily setup and run your own ocserv with this container and enjoy joining your network with one click. To do so run below command in root directory of this repo and build fresh ocserve docker image with certificate authentication customized for your domain. Meaning of build arguments provided in Table. 1 .
+
+```bash
+$ docker build --build-arg ORGANIZATION="Example Corp" --build-arg DOMAIN=example.com -t anyconnect:certificate ./certificate/
+```
+
+Easyest way to copy generated certificate outside of container is to use docker volumes. Create cert folder to store certs and pass it as a volume to docker container just like below:
+
+```bash
+$ cd /to/appropriate/location/
+$ mkdir certs
+$ docker run --name any-cert -it --privileged -v $(pwd)/certs:/certs -p 4321:4321 anyconnect:certificate
+Parsing plain auth method subconfig using legacy format
+note: setting 'plain' as primary authentication method
+note: setting 'file' as supplemental config option
+root@a86f00e3e939:/certs/#
+``` 
+
+You will directed to **any-cert** container bash. Create client certificates with `gcc <username>` and provide certificate password and user password. For example: 
+
+```bash
+root@a86f00e3e939:/certs# gcc john
+Generating a 3072 bit RSA private key...
+Generating a signed certificate...
+X.509 Certificate Information:
+  ....
+Generating a PKCS #12 structure...
+Loading private key list...
+Loaded 1 private keys.
+Enter a name for the key: john
+Enter password:
+Confirm password:
+Enter plain ocpasswd password:
+Enter password:
+Re-enter password:
+root@a86f00e3e939:/certs#
+```
+
+After generating clients certificates hit <kbd>Ctrl-p</kbd> <kbd>Ctrl-q</kbd> to detach from bash. To add more users in future, first execute new bash on **any-cert** with:
+
+```bash
+$ docker exec -it any-cert /bin/bash
+root@a86f00e3e939:/certs/#
+```
+
+and then create users as stated before and quit with `exit`.
+
+### Use certificate in cisco anyconnect client.
+
+### todo
+
+## Speed up your network
+
+### todo
 
 ### References
 
