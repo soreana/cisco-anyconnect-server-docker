@@ -53,6 +53,8 @@ and then create users as stated before and quit with `exit`.
 
 ## Section III: certificate authentication config
 
+### todo write this section
+
 ### References
 
 [1] : [https://lowendbox.com/blog/install-openconnect-server-on-ubuntu-16-04/](https://lowendbox.com/blog/install-openconnect-server-on-ubuntu-16-04/)<br/>
