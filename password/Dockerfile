@@ -23,4 +23,6 @@ RUN apt-get update && \
 
 COPY ocpasswd ocserv.conf /etc/ocserv/
 
+WORKDIR /certs/
+
 ENTRYPOINT /etc/ocserv/start.sh && /bin/bash
