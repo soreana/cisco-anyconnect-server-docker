@@ -10,7 +10,8 @@ There exist two way of client authentication, with password or certificate. Pass
 
 In the section II I will show password authentication configuration and how you can add new client. In section III I will use same procedure to introduce certificate authentication. Some tricks to boost your network speed and delay provided in final section.
 
-## Section II: password authentication config
+## Section II: password authentication configuration
+
 Easiest ocserv configuration is its password authentication. By passing some argument at build time you can build your own docker image customized for your domain. Run below command in root directory of this repo to build fresh ocserve docker image with password authentication customized for your domain. Meaning of build arguments provided in Table. 1 .
 
 ```bash
@@ -51,7 +52,7 @@ and then create users as stated before and quit with `exit`.
 
 *Table. 1: meaning of password configuration build args*
 
-## Section III: certificate authentication config
+## Section III: certificate authentication configuration
 
 I don't know how you feel about typing your password every time you want to use VPN but I hate it. Certificate authentication come to rescue us. Although it is hard to setup and maintain certificates ocsev, you can easily setup and run your own ocserv with this container and enjoy joining your network with one click. To do so run below command in root directory of this repo and build fresh ocserve docker image with certificate authentication customized for your domain. Meaning of build arguments provided in Table. 1 .
 
