@@ -107,7 +107,7 @@ and then create users as stated before and quit with `exit`.
 
 ## Speed up your network
 
-You can Boost Ubuntu Network Performance by Enabling **TCP BBR**. Before going forward, check your kernel version. It probably uses a 4.9 or higher kernel version. The following lines quoted from [4].
+You can Boost Ubuntu Network Performance by Enabling **TCP BBR**. Before going forward, check your kernel version. It probably uses a 4.9 or higher kernel version. The following lines quoted from [[4](https://www.linuxbabe.com/ubuntu/enable-google-tcp-bbr-ubuntu)].
 
 > Once you have kernel 4.9 or above, edit sysctl.conf file.
 > ```bash
