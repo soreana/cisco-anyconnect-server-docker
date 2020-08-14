@@ -107,10 +107,31 @@ and then create users as stated before and quit with `exit`.
 
 ## Speed up your network
 
-### todo
+You can Boost Ubuntu Network Performance by Enabling **TCP BBR**. Before going forward, check your kernel version. It probably uses a 4.9 or higher kernel version. The following lines quoted from [4].
+
+> Once you have kernel 4.9 or above, edit sysctl.conf file.
+> ```bash
+> $ sudo nano /etc/sysctl.conf
+> ```
+> Add the following two line at the end of the file.
+> ```bash
+> net.core.default_qdisc=fq
+> net.ipv4.tcp_congestion_control=bbr
+> ```
+> Save and close the file. Then reload sysctl configurations.
+> ```bash
+>sudo sysctl -p
+> ```
+> Now check the congestion control algorithm in use.
+> ```bash
+> $ sysctl net.ipv4.tcp_congestion_control
+> net.ipv4.tcp_congestion_control = bbr
+> ```
+>Congrats! You have successfully enabled TCP BBR on Ubuntu.
 
 ### References
 
 [1] : [https://lowendbox.com/blog/install-openconnect-server-on-ubuntu-16-04/](https://lowendbox.com/blog/install-openconnect-server-on-ubuntu-16-04/)<br/>
 [2] : [https://www.linuxbabe.com/ubuntu/openconnect-vpn-server-ocserv-ubuntu-16-04-17-10-lets-encrypt](https://www.linuxbabe.com/ubuntu/openconnect-vpn-server-ocserv-ubuntu-16-04-17-10-lets-encrypt)<br/>
-[3] : [https://www.linuxbabe.com/ubuntu/certificate-authentication-openconnect-vpn-server-ocserv](https://www.linuxbabe.com/ubuntu/certificate-authentication-openconnect-vpn-server-ocserv)
+[3] : [https://www.linuxbabe.com/ubuntu/certificate-authentication-openconnect-vpn-server-ocserv](https://www.linuxbabe.com/ubuntu/certificate-authentication-openconnect-vpn-server-ocserv)<br/>
+[4] : [https://www.linuxbabe.com/ubuntu/enable-google-tcp-bbr-ubuntu](https://www.linuxbabe.com/ubuntu/enable-google-tcp-bbr-ubuntu)
