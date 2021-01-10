@@ -2,23 +2,23 @@
 
 ## Sectoin I: Introduction
 
-As an Iranian Citizen, I always have trouble with censorship forced by our beloved governments on one hand and foreign sanctions burden on another hand. They banned our IP, filtered our domain, drop MTProto and OpenVPN protocol or even removed our servers from their data centers, but we are always one step ahead :-)
+As an Iranian citizen, I always have trouble with censorship forced by our beloved government on one hand and foreign sanctions burden on another hand. They banned our IP, filtered our domain, drop MTProto and OpenVPN protocols and even removed our servers from their data centers, but we are always one step ahead :-)
 
-To address these issues I start to use docker to ease the pain of installing and installing and installing the same applications again and again and again. In this way, I can change my host and deploy my applications on a new host in less than a minute. One of my favorite applications to bypass filter is cisco anyconnect. I like it because it relays traffic between clients and servers like OpenSSH and HTTPS. In this way, the government can't discriminate between Anyconnect traffic and HTTPS, as a result, they can't block anyconnect traffic unless they block all HTTPS traffic.
+To address these issues I start to use docker to ease the pain of installing and installing and installing the same applications again and again and again. In this way, I can change my host and deploy my applications on a new host in less than a minute. One of my favorite applications to bypass filter is Cisco AnyConnect. I like it because it relays traffic between clients and servers like OpenSSH and HTTPS. In this way, the government can't distinguish between Anyconnect traffic and HTTPS, as a result, they can't block AnyConnect traffic unless they block all HTTPS traffic.
 
-There exist two way of client authentication, with password or certificate. Password authentication is straightforward and it doesn't need complex configuration but configuration complexity of certificate authentication is rather high; You should understand how certificate works and generate certificate for every user. On the other hand client get rid of typing password every time they want to connect to network. I tried to solve issue of configuration by introducing `gcc` **(generate client certificate)** command.  You can easily generate new certificate by typing `gcc <username>` (more on that on section III).
+There exist two ways of client authentication, with password or certificate. Password authentication is straightforward and it doesn't need complex configuration but configuration complexity of certificate authentication is rather high; You should understand how certificate works and generate certificate for every user. However, it saves you from having to type the password every time you want to connect. I tried to solve issue of configuration by introducing `gcc` **(generate client certificate)** command.  You can easily generate new certificate by typing `gcc <username>` (more on that on section III).
 
-In the section II I will show password authentication configuration and how you can add new client. In section III I will use same procedure to introduce certificate authentication. Some tricks to boost your network speed and delay provided in final section.
+In the section II I will show password authentication configuration and how you can add new clients. In section III I will use the same procedure to introduce certificate authentication. Some tricks to boost your network speed and minimize delay are provided in the final section.
 
 ## Section II: password authentication configuration
 
-Easiest ocserv configuration is its password authentication. By passing some argument at build time you can build your own docker image customized for your domain. Run below command in root directory of this repo to build fresh ocserve docker image with password authentication customized for your domain. Meaning of build arguments provided in Table. 1 .
+Easiest `ocserv` configuration is its password authentication. By passing some arguments at build time you can build your own docker image customized for your domain. Run the below command in root directory of this repo to build fresh `ocserv` docker image with password authentication, customized for your domain. Description of build arguments are provided in Table. 1 .
 
 ```bash
 $ docker build --build-arg ORGANIZATION="Example Corp" --build-arg DOMAIN=example.com -t anyconnect:password ./password/
 ```
 
-After successful build run anyconnect image by:
+After successful build run `AnyConnect` image by:
 
 ```bash
 $ docker run --name any-pass -it --privileged -p 4321:4321 anyconnect:password
@@ -28,13 +28,13 @@ note: setting 'file' as supplemental config option
 root@a86f00e3e939:/etc/ocserv#
 ``` 
 
-You will directed to **any-pass** container bash. Create clients with:
+You will be directed to **any-pass** container bash. Create clients with:
 
 ```bash
 root@a86f00e3e939:/etc/ocserv# ocpasswd -c /etc/ocserv/ocpasswd <username>
 ```
 
-After setting up users and their password then hit <kbd>Ctrl-p</kbd> <kbd>Ctrl-q</kbd> to detach from bash. To add more users in future, first execute new bash on **any-pass** with:
+After setting up users and their password hit <kbd>Ctrl-p</kbd> <kbd>Ctrl-q</kbd> to detach from bash. To add more users in future, first execute a new bash on **any-pass** with:
 
 ```bash
 $ docker exec -it any-pass /bin/bash
@@ -50,11 +50,11 @@ and then create users as stated before and quit with `exit`.
 | ORGANIZATION | Organization field in generated cetificates. | "Example Corp" |
 |    DOMAIN    |  Certificate will generate for this domain   | "example.com"  |
 
-*Table. 1: meaning of password configuration build args*
+*Table. 1: description of password configuration build args*
 
 ## Section III: certificate authentication configuration
 
-I don't know how you feel about typing your password every time you want to use VPN but I hate it. Certificate authentication come to rescue us. Although it is hard to setup and maintain certificates ocsev, you can easily setup and run your own ocserv with this container and enjoy joining your network with one click. To do so run below command in root directory of this repo and build fresh ocserve docker image with certificate authentication customized for your domain. Meaning of build arguments provided in Table. 1 .
+I don't know how you feel about typing your password every time you want to use VPN but I hate it. Certificate authentication comes to rescue. Although it is hard to setup and maintain certificates `ocserv`, you can easily setup and run your own `ocserv` with this container and enjoy joining your network with one click. To do so run the below command in root directory of this repo to build a fresh `ocserv` docker image with certificate authentication customized for your domain. Description of build arguments provided in Table. 1 .
 
 ```bash
 $ docker build --build-arg ORGANIZATION="Example Corp" --build-arg DOMAIN=example.com -t anyconnect:certificate ./certificate/
@@ -92,7 +92,7 @@ Re-enter password:
 root@a86f00e3e939:/certs#
 ```
 
-After generating clients certificates hit <kbd>Ctrl-p</kbd> <kbd>Ctrl-q</kbd> to detach from bash. To add more users in future, first execute new bash on **any-cert** with:
+After generating clients certificates hit <kbd>Ctrl-p</kbd> <kbd>Ctrl-q</kbd> to detach from bash. To add more users in future, first execute a new bash on **any-cert** with:
 
 ```bash
 $ docker exec -it any-cert /bin/bash
