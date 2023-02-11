@@ -129,6 +129,13 @@ You can Boost Ubuntu Network Performance by Enabling **TCP BBR**. Before going f
 > ```
 >Congrats! You have successfully enabled TCP BBR on Ubuntu.
 
+### Some useful commands
+
+Get certificate's expiration date:
+```
+# openssl pkcs12 -in <certificate file name> -nodes     -passin pass:"<password>" | openssl x509 -noout -enddate
+```
+
 ### References
 
 [1] : [https://lowendbox.com/blog/install-openconnect-server-on-ubuntu-16-04/](https://lowendbox.com/blog/install-openconnect-server-on-ubuntu-16-04/)<br/>
