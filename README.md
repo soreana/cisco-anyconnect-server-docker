@@ -136,6 +136,14 @@ Get certificate's expiration date:
 # openssl pkcs12 -in <certificate file name> -nodes     -passin pass:"<password>" | openssl x509 -noout -enddate
 ```
 
+Enable ip forwarding
+```
+# apt install iptables-persistent
+# iptables -P FORWARD ACCEPT
+# iptables-save > /etc/iptables/iptables.rules
+# vim /etc/crontab ( add "* * * * * root iptables -P FORWARD ACCEPT" there)
+```
+
 ### References
 
 [1] : [https://lowendbox.com/blog/install-openconnect-server-on-ubuntu-16-04/](https://lowendbox.com/blog/install-openconnect-server-on-ubuntu-16-04/)<br/>
